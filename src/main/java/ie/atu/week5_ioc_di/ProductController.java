@@ -1,5 +1,6 @@
 package ie.atu.week5_ioc_di;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -14,31 +15,31 @@ public class ProductController {
         this.myService = myService;
     }
 
-    private List<Product> List = new ArrayList<>();
+    private List<Product> list = new ArrayList<>();
     //creating a class which is interested in requests and responses. Separation of concern
     @GetMapping("/getProduct")
     public List<Product> getProducts()
     {
-        List = myService.getProduct();
-        return List;
+        list = myService.getProduct();
+        return list;
     }
     @PostMapping("/addProduct")
-    public List<Product> newProduct(@RequestBody Product product)
+    public List<Product> newProduct(@Valid @RequestBody Product product)
     {
         //send it to do business logic
-        List = myService.addProduct(product);
-        return List;
+        list = myService.addProduct(product);
+        return list;
     }
     @PutMapping("/updateProduct/{id}")
-    public List<Product> updateProducts(@RequestBody Product product, @PathVariable int id)
+    public List<Product> updateProducts(@Valid @RequestBody Product product, @PathVariable int id)
     {
-        List = myService.updateProduct(product, id);
-        return List;
+        list = myService.updateProduct(product, id);
+        return list;
     }
     @DeleteMapping("/deleteProduct/{id}")
     public List<Product> deleteProducts(@PathVariable int id)
     {
-        List = myService.deleteProduct(id);
-        return List;
+        list = myService.deleteProduct(id);
+        return list;
     }
 }
